@@ -1,3 +1,4 @@
 from django.shortcuts import render
 
-# Create your views here.
+def test_contents(request):
+    return render(request, 'shoppablecontents/test_contents.html')
