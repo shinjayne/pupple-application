@@ -31,7 +31,9 @@ handler404 = error_page
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', index, name='index')
+    path('', index, name='index'),
+
+    url(r'^contents/shoppable/', include('shoppablecontents.urls', namespace='shoppablecontents')),
 ]
 
 
