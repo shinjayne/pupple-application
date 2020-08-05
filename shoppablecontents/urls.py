@@ -1,3 +1,6 @@
-from django.conf.urls import urls
+from django.urls import path
+from shoppablecontents import views
 
-urlpatterns = []
+urlpatterns = [
+    path('', views.test_contents),
+]

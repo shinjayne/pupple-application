@@ -33,7 +33,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', index, name='index'),
 
-    url(r'^contents/shoppable/', include('shoppablecontents.urls', namespace='shoppablecontents')),
+    path('contents/shoppable/', include('shoppablecontents.urls')),
 ]
 
 
