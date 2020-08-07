@@ -30,6 +30,8 @@ handler500 = error_page
 handler404 = error_page
 
 urlpatterns = [
+    path('contents/', include('contents.urls')),
+
     path('admin/', admin.site.urls),
     path('', index, name='index')
 ]
