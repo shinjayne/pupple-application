@@ -19,6 +19,8 @@ class Creator(models.Model):
     name = models.CharField(max_length=20)
     explain = models.TextField(blank=True)  ## max_length 지정할지 고민
     profile_img = models.ImageField(upload_to="contents/creator/profile", blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 class YoutubeContents(models.Model):
     shoppable_contents = models.ForeignKey(ShoppableContents, on_delete=models.SET_NULL, null=True)
@@ -33,6 +35,8 @@ class Item(models.Model):
     explain = models.TextField(blank=True)
     price = models.PositiveIntegerField(default=0)
     link = models.URLField(blank=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 # class ItemImage(models.Model):
 #     item = models.ForeignKey(Item, on_delete=models.CASCADE)
@@ -45,6 +49,8 @@ class Look(models.Model):
     # imgs = models.ForeignKey('LookImage', on_delete=models.SET_NULL, null=True)
     items = models.ManyToManyField(Item)
     like = models.PositiveIntegerField(default=0)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
 
 # class LookImage(models.Model):
 #     look = models.ForeignKey(Look, on_delete=models.CASCADE)
