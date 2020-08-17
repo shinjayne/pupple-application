@@ -23,7 +23,8 @@ class Creator(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class YoutubeContents(models.Model):
-    shoppable_contents = models.ForeignKey(ShoppableContents, on_delete=models.SET_NULL, null=True)
+    shoppable_contents = models.ForeignKey(ShoppableContents, on_delete=models.SET_NULL, null=True, related_name="youtube_contents_set")
+    title = models.CharField(max_length=100)
     creator = models.ForeignKey(Creator, on_delete=models.CASCADE)
     link = models.URLField()
 
@@ -43,7 +44,7 @@ class Item(models.Model):
 #     img = models.ImageField(upload_to=item_img_upload_path)
 
 class Look(models.Model):
-    youtube_contents = models.ForeignKey(YoutubeContents, on_delete=models.SET_NULL, null=True)
+    youtube_contents = models.ForeignKey(YoutubeContents, on_delete=models.SET_NULL, null=True, related_name="look_set")
     title = models.CharField(max_length=100)
     main_img = models.ImageField(upload_to="contents/look/{}".format(title), blank=True)
     # imgs = models.ForeignKey('LookImage', on_delete=models.SET_NULL, null=True)
