@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from components.models import Component, LookItemInfoComponent, ItemCategoryInfoComponent, VoteComponent
+from components.models import Component, LookItemInfoComponent, ItemCategoryInfoComponent, VoteComponent, VoteChoice
 
 def component_to_response(request, pk):
     component_class = Component.objects.get_subclass(pk=pk)
@@ -45,9 +45,18 @@ def vote_component_to_response(component):
 
 def vote_component_choice_to_response(choice):
     response = {
+        "pk": choice.pk,
         "name": choice.name,
         "img_url": choice.img.url,
         "vote": choice.vote,
     }
 
     return response
+
+def vote_component_choice_increas(pk):
+    choice = VoteChoice.objects.get(pk=pk)
+    choice.vote += 1
+    choice.save()
+
+    return choice.vote
+

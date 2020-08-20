@@ -50,6 +50,7 @@ def looks_to_response(look):
     items = look.items.all()
 
     response = {
+        "pk": look.pk,
         "title": look.title,
         "main_img_url": look.main_img.url,
         "like": look.like,
@@ -74,5 +75,10 @@ def items_to_response(request, pk):
 
     return JsonResponse(response)
 
+def look_like_increas(pk):
+    look = Look.objects.get(pk=pk)
+    look.like += 1
+    look.save()
 
+    return look.like
 
