@@ -3,7 +3,12 @@ from django.shortcuts import render
 
 from contents.models import ShoppableContents, YoutubeContents, Look, Item
 
-def shoppable_contents_to_response(pk):
+def shoppable_contents_detail(request, pk):
+    return render(request, 'contents/test.html', {
+        'pk': pk,
+    })
+
+def shoppable_contents_to_response(request, pk):
     shoppable_contents = ShoppableContents.objects.get(pk=pk)
     youtube_contents = shoppable_contents.youtube_contents_set.all()
     components = shoppable_contents.component_set.all()
@@ -13,7 +18,7 @@ def shoppable_contents_to_response(pk):
         "explain": shoppable_contents.explain,
         "img_url": shoppable_contents.background_img.url,
         "youtube_contents_list": [
-            youtube_contents_to_response(yotube_content) for youtube_content in youtube_contents
+            youtube_contents_to_response(youtube_content) for youtube_content in youtube_contents
         ],
         "components_pk_list": [
             component.pk for component in components
@@ -42,7 +47,7 @@ def youtube_contents_to_response(youtube_contents):
     return response
 
 def looks_to_response(look):
-    items = look.item_set.all()
+    items = look.items.all()
 
     response = {
         "title": look.title,
@@ -55,7 +60,7 @@ def looks_to_response(look):
 
     return response
 
-def items_to_response(pk):
+def items_to_response(request, pk):
     item = Item.objects.get(pk=pk)
 
     response = {

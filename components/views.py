@@ -3,9 +3,10 @@ from django.shortcuts import render
 
 from components.models import Component, LookItemInfoComponent, ItemCategoryInfoComponent, VoteComponent
 
-def component_to_response(pk):
-    component_class = Components.objects.get_subclass(pk=pk)
-    component = Components.objects.get(pk=pk)
+def component_to_response(request, pk):
+    component_class = Component.objects.get_subclass(pk=pk)
+    component = Component.objects.get(pk=pk)
+    component_class = component_class.get_component_class()
 
     if component_class == "VoteComponent":
         component_info = vote_component_to_response(component)
@@ -17,7 +18,7 @@ def component_to_response(pk):
         "fields": component_info,
     }
 
-    return JsonResponse(reponse)
+    return JsonResponse(response)
 
 def basic_info_component_to_response(component):
     response = {
@@ -29,16 +30,16 @@ def basic_info_component_to_response(component):
     return response
 
 def vote_component_to_response(component):
-    choices = component.vote_choice_set.all()
-    basic_info = basic_info_component_to_response(component)
+    vote_component = component.votecomponent
+    choices = vote_component.vote_choice_set.all()
+    response = basic_info_component_to_response(component)
     add_info = {
-        "img_url": component.img.url,
+        "img_url": vote_component.img.url,
         "choices": [
-            vote_component_to_response(choice) for choice in vote_component_to_response
+            vote_component_choice_to_response(choice) for choice in choices
         ]
     }
-
-    response = basic_info.update(add_info)
+    response.update(add_info)
 
     return response
 
