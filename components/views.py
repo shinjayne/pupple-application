@@ -7,12 +7,10 @@ def component_to_response(pk):
     component_class = Components.objects.get_subclass(pk=pk)
     component = Components.objects.get(pk=pk)
 
-    if component_class == "LookItemInfoComponent" or "ItemCategoryInfoComponent":
-        component_info = basic_info_component_to_response(component)
-    elif component_class == "VoteComponent":
+    if component_class == "VoteComponent":
         component_info = vote_component_to_response(component)
     else:
-        return JsonResponse(status=204)
+        component_info = basic_info_component_to_response(component)
 
     response = {
         "type": component_class,

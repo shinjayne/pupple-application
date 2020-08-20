@@ -12,8 +12,8 @@ def shoppable_contents_to_response(pk):
         "title": shoppable_contents.title,
         "explain": shoppable_contents.explain,
         "img_url": shoppable_contents.background_img.url,
-        "youtube_contents_pk_list": [
-            yotube_content.pk for youtube_content in youtube_contents
+        "youtube_contents_list": [
+            youtube_contents_to_response(yotube_content) for youtube_content in youtube_contents
         ],
         "components_pk_list": [
             component.pk for component in components
@@ -22,8 +22,7 @@ def shoppable_contents_to_response(pk):
 
     return JsonResponse(response)
 
-def youtube_contents_to_response(pk):
-    youtube_contents = YoutubeContents.objects.get(pk=pk)
+def youtube_contents_to_response(youtube_contents):
     creator = youtube_contents.creator
     looks = youtube_contents.look_set.all()
 
@@ -35,15 +34,14 @@ def youtube_contents_to_response(pk):
             "profile_img_url": creator.profile_img.url
         },
         "link": youtube_contents.link,
-        "looks_pk_list": [
-            look.pk for look in looks
+        "look_list": [
+            looks_to_response(look) for look in looks
         ],
     }
 
-    return JsonResponse(response)
+    return response
 
-def looks_to_response(pk):
-    look = Look.objects.get(pk=pk)
+def looks_to_response(look):
     items = look.item_set.all()
 
     response = {
@@ -55,7 +53,7 @@ def looks_to_response(pk):
         ],
     }
 
-    return JsonResponse(response)
+    return response
 
 def items_to_response(pk):
     item = Item.objects.get(pk=pk)
@@ -68,6 +66,8 @@ def items_to_response(pk):
         "price": item.price,
         "link": item.link,
     }
+
+    return JsonResponse(response)
 
 
 
