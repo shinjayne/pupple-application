@@ -44,7 +44,7 @@ class Migration(migrations.Migration):
             name='VoteComponent',
             fields=[
                 ('component_ptr', models.OneToOneField(auto_created=True, on_delete=django.db.models.deletion.CASCADE, parent_link=True, primary_key=True, serialize=False, to='components.component')),
-                ('img', models.ImageField(blank=True, upload_to=components.models.vote_img_upload_path)),
+                ('img', models.ImageField(blank=True, upload_to='component/vote/')),
             ],
             bases=('components.component',),
         ),
@@ -53,7 +53,7 @@ class Migration(migrations.Migration):
             fields=[
                 ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
                 ('name', models.CharField(blank=True, max_length=100)),
-                ('img', models.ImageField(blank=True, upload_to=components.models.vote_choice_img_upload_path)),
+                ('img', models.ImageField(blank=True, upload_to='component/vote/choice/')),
                 ('vote', models.PositiveIntegerField(default=0)),
                 ('vote_component', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, to='components.votecomponent')),
             ],
