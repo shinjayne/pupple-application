@@ -13,13 +13,20 @@ class Component(models.Model):
     objects = InheritanceManager()
 
 class LookItemInfoComponent(Component):
-    pass
+
+    def get_component_class(self):
+        return "LookItemInfoComponent"
 
 class ItemCategoryInfoComponent(Component):
-    pass
+
+    def get_component_class(self):
+        return "ItemCategoryInfoComponent"
 
 class VoteComponent(Component):
     img = models.ImageField(upload_to="component/vote/", blank=True)
+
+    def get_component_class(self):
+        return "VoteComponent"
 
 class VoteChoice(models.Model):
     vote_component = models.ForeignKey(VoteComponent, on_delete=models.CASCADE, related_name="vote_choice_set")
