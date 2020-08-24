@@ -35,6 +35,7 @@ def vote_component_to_response(component):
     response = basic_info_component_to_response(component)
     add_info = {
         "img_url": vote_component.img.url,
+        "img_aspect_ratio": vote_component.img_aspect_ratio,
         "allow_multi_choices": vote_component.allow_multi_choices,
         "choices": [
             vote_component_choice_to_response(choice) for choice in choices
@@ -54,7 +55,7 @@ def vote_component_choice_to_response(choice):
 
     return response
 
-def vote_component_choice_increas(pk):
+def vote_component_choice_increase(pk):
     choice = VoteChoice.objects.get(pk=pk)
     choice.vote += 1
     choice.save()
