@@ -35,6 +35,7 @@ def vote_component_to_response(component):
     response = basic_info_component_to_response(component)
     add_info = {
         "img_url": vote_component.img.url,
+        "allow_multi_choices": vote_component.allow_multi_choices,
         "choices": [
             vote_component_choice_to_response(choice) for choice in choices
         ]

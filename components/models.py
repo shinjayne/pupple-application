@@ -24,6 +24,7 @@ class ItemCategoryInfoComponent(Component):
 
 class VoteComponent(Component):
     img = models.ImageField(upload_to="component/vote/", blank=True)
+    allow_multi_choices = models.BooleanField(default=False)
 
     def get_component_class(self):
         return "VoteComponent"
