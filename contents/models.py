@@ -28,6 +28,9 @@ class YoutubeContents(models.Model):
     creator = models.ForeignKey(Creator, on_delete=models.CASCADE)
     link = models.URLField()
 
+class ItemTag(models.Model):
+    name = models.CharField(max_length=20)
+
 class Item(models.Model):
     name = models.CharField(max_length=20)
     category = models.CharField(choices=ITEM_CATEGORY, default='none' , max_length=10)
@@ -36,6 +39,7 @@ class Item(models.Model):
     explain = models.TextField(blank=True)
     price = models.PositiveIntegerField(default=0)
     link = models.URLField(blank=True)
+    tags = models.ManyToManyField(ItemTag, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -47,6 +51,7 @@ class Look(models.Model):
     youtube_contents = models.ForeignKey(YoutubeContents, on_delete=models.SET_NULL, null=True, related_name="look_set")
     title = models.CharField(max_length=100)
     main_img = models.ImageField(upload_to="contents/look/{}".format(title), blank=True)
+    main_img_aspect_ratio = models.FloatField(default=1.0)
     # imgs = models.ForeignKey('LookImage', on_delete=models.SET_NULL, null=True)
     items = models.ManyToManyField(Item)
     like = models.PositiveIntegerField(default=0)

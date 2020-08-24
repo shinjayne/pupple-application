@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from contents.models import ShoppableContents, YoutubeContents, Look, Item
+from contents.models import ShoppableContents, YoutubeContents, Look, Item, ItemTag
 
 def shoppable_contents_detail(request, pk):
     return render(request, 'contents/test.html', {
@@ -63,6 +63,7 @@ def looks_to_response(look):
 
 def items_to_response(request, pk):
     item = Item.objects.get(pk=pk)
+    tags = item.tags.all()
 
     response = {
         "name": item.name,
@@ -71,11 +72,26 @@ def items_to_response(request, pk):
         "main_img_url": item.main_img.url,
         "price": item.price,
         "link": item.link,
+        "tag_pk_list": [
+            tag.pk for tag in tags
+        ],
     }
 
     return JsonResponse(response)
 
-def look_like_increas(pk):
+def related_items_to_response(request, pk):
+    tag = ItemTag.objects.get(pk=pk)
+    related_items = tag.item_set.all()
+
+    response = {
+        "related_items": [
+            items_to_response(item.pk) for item in related_items
+        ],
+    }
+
+    return JsonResponse(response)
+
+def look_like_increase(pk):
     look = Look.objects.get(pk=pk)
     look.like += 1
     look.save()
