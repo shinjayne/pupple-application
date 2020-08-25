@@ -26,7 +26,9 @@ SECRET_KEY = 'p&py55dgo=z9m0*eq7e@^h7_+atb!*1^#=a*u(8ear15b#hsj$'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    '3.35.82.232' # Lightsail Elastic IP
+    '3.35.82.232',   # Lightsail Elastic IP
+    '127.0.0.1',
+    'localhost',
 ]
 
 
@@ -124,8 +126,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
 STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'content', 'static'),
-    os.path.join(BASE_DIR, 'component', 'static'),
+    # os.path.join(BASE_DIR, 'contents', 'static'),
+    # os.path.join(BASE_DIR, 'components', 'static'),
 ]
 
 STATIC_URL = '/static/'
