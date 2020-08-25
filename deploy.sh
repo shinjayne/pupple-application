@@ -24,7 +24,7 @@ pipenv install
 echo '########################'
 echo 'collect static'
 echo '########################'
-python manage.py collectstatic
+python manage.py collectstatic --noinput
 
 echo '########################'
 echo 'gunicorn setting & nginx setting'
