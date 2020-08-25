@@ -1,19 +1,34 @@
-# install host machine requirements.
+echo '########################'
+echo 'install host machine requirements.'
+echo '########################'
 sudo apt-get -y install pipenv
 sudo apt-get -y install nginx
 pip install gunicorn
 
-# prepare source code
+echo '########################'
+echo 'prepare source code'
+echo '########################'
 sudo git pull origin
 
-# get into python virtual environment
+echo '########################'
+echo 'get into python virtual environment'
+echo '########################'
 pipenv shell
 
-# install dependencies from Pipfile
+echo '########################'
+echo 'install dependencies from Pipfile'
+echo '########################'
+
 pipenv install
-# collect static
+
+echo '########################'
+echo 'collect static'
+echo '########################'
 python manage.py collectstatic
-# gunicorn setting & nginx setting
+
+echo '########################'
+echo 'gunicorn setting & nginx setting'
+echo '########################'
 sudo cp ./gunicorn.service /etc/systemd/system/gunicorn.service
 sudo cp ./nginx.conf /etc/nginx/sites-enabled/nginx.conf
 
