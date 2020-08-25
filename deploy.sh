@@ -32,5 +32,14 @@ echo '########################'
 sudo cp ./gunicorn.service /etc/systemd/system/gunicorn.service
 sudo cp ./nginx.conf /etc/nginx/sites-enabled/nginx.conf
 
+echo '########################'
+echo 'start server'
+echo '########################'
+sudo systemctl daemon-reload
+sudo systemctl restart nginx
+sudo systemctl restart gunicorn
+sudo systemctl status nginx
+sudo systemctl status gunicorn
+
 
 
