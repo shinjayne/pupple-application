@@ -1,6 +1,6 @@
 sudo git pull origin
 sudo apt-get -y install pipenv
-#sudo apt-get -y install nginx
+sudo apt-get -y install nginx
 pipenv shell
 pipenv install
 python manage.py collectstatic
