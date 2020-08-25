@@ -9,7 +9,6 @@ verify_ssl = true
 django = "3.1.0"
 django-model-utils = "*"
 pillow = "*"
-gunicorn = "*"
 
 [requires]
 python_version = "3.7"
