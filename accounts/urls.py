@@ -1,4 +1,6 @@
 from django.urls import path
 from accounts import views
 
-urlpatterns = []
+urlpatterns = [
+    path('ip/', views.get_ip_user, name='get_ip_user')
+]
