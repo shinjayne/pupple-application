@@ -5,6 +5,7 @@ After=network.target
 [Service]
 User=bitnami
 Group=www-data
+Environment=PUPPLE_MAGIC_CODE={var}
 WorkingDirectory=/home/bitnami/pupple-application
 ExecStart=pipenv run gunicorn --bind=0.0.0.0:8000  puppleApplication.wsgi:application
 

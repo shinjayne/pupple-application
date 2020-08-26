@@ -34,6 +34,7 @@ pipenv run python manage.py migrate
 echo '########################'
 echo 'gunicorn service setting & nginx setting'
 echo '########################'
+sudo replace '{var}' $PUPPLE_MAGIC_CODE -- ./gunicorn.service
 sudo cp ./gunicorn.service /etc/systemd/system/gunicorn.service
 sudo cp ./nginx.conf /etc/nginx/sites-enabled/nginx.conf
 
