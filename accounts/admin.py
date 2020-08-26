@@ -1,3 +1,4 @@
 from django.contrib import admin
+from accounts.models import IPUserProfile
 
-# Register your models here.
+admin.site.register(IPUserProfile)
