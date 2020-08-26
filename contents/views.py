@@ -49,6 +49,7 @@ def looks_to_response(look):
         "pk": look.pk,
         "title": look.title,
         "main_img_url": look.main_img.url,
+        "main_img_aspect_ratio": look.main_img_aspect_ratio,
         "like": look.like,
         "items_pk_list": [
             item.pk for item in items
