@@ -2,8 +2,8 @@ from django.urls import path
 from contents import views
 
 urlpatterns = [
-    path('shoppable/<int:pk>/', views.shoppable_contents_to_response, name='shoppable_contents_to_response'),
-    path('item/<int:pk>/', views.items_to_response, name='items_to_response'),
-    path('item/related/<int:pk>/', views.related_items_to_response, name='related_items_to_response'),
+    path('shoppable/<int:pk>/', views.get_shoppable_contents, name='get_shoppable_contents'),
+    path('item/<int:pk>/', views.get_items, name='get_items'),
+    path('item/related/<int:pk>/', views.get_related_items, name='get_related_items'),
     path('look/like/<int:pk>/', views.look_like_increase, name='look_like_increase'),
 ]

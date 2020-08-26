@@ -3,7 +3,7 @@ from django.shortcuts import render
 
 from components.models import Component, LookItemInfoComponent, ItemCategoryInfoComponent, VoteComponent, VoteChoice
 
-def component_to_response(request, pk):
+def component_to_response(pk):
     component_class = Component.objects.get_subclass(pk=pk)
     component = Component.objects.get(pk=pk)
     component_class = component_class.get_component_class()
@@ -18,7 +18,7 @@ def component_to_response(request, pk):
         "fields": component_info,
     }
 
-    return JsonResponse(response)
+    return response
 
 def basic_info_component_to_response(component):
     response = {
@@ -54,6 +54,10 @@ def vote_component_choice_to_response(choice):
     }
 
     return response
+
+
+def get_component(request, pk):
+    return JsonResponse(component_to_response(pk))
 
 def vote_component_choice_increase(pk):
     choice = VoteChoice.objects.get(pk=pk)
