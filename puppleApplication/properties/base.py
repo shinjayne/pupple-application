@@ -27,6 +27,7 @@ class BaseProperties:
 
         'contents',
         'components',
+        'accounts',
     ]
 
     MIDDLEWARE = [
