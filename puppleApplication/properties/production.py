@@ -15,9 +15,9 @@ class ProductionProperties(BaseProperties):
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'pupple',
-            'USER': 'dbmasteruser',
+            'USER': 'master',
             'PASSWORD': os.environ.get('PUPPLE_MAGIC_CODE', ''),
-            'HOST': 'ls-a319742bc22d16b76574c26f3dfa2f21ddd4f938.cphakafsq0ss.ap-northeast-2.rds.amazonaws.com',
+            'HOST': 'pupple-db.cxkrqyqhsa8o.ap-northeast-2.rds.amazonaws.com',
             'PORT': 3306,
         }
     }

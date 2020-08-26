@@ -1,3 +1,5 @@
+export ENV='production'
+
 echo '########################'
 echo 'install host machine requirements.'
 echo '########################'
