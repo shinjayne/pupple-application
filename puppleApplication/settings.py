@@ -37,6 +37,8 @@ SECRET_KEY = activeProperties.SECRET_KEY
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = activeProperties.DEBUG
 
+LOGGING = activeProperties.LOGGING
+
 ALLOWED_HOSTS = activeProperties.ALLOWED_HOSTS
 
 

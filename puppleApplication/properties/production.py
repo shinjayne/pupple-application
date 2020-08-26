@@ -4,6 +4,24 @@ from puppleApplication.properties.base import BaseProperties
 
 
 class ProductionProperties(BaseProperties):
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'file': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': '~/pupple-application/debug.log',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['file'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+        },
+    }
 
     ALLOWED_HOSTS = [
         '3.34.90.4',  # EC2 IP
