@@ -11,7 +11,7 @@ class ProductionProperties(BaseProperties):
             'file': {
                 'level': 'DEBUG',
                 'class': 'logging.FileHandler',
-                'filename': '~/pupple-application/debug.log',
+                'filename': 'django.log',
             },
         },
         'loggers': {
@@ -41,4 +41,4 @@ class ProductionProperties(BaseProperties):
         }
     }
 
-    DEBUG = False
+    DEBUG = True
