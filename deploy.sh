@@ -20,8 +20,16 @@ echo 'collect static'
 echo '########################'
 pipenv run python manage.py collectstatic --noinput
 
+
+
 echo '########################'
-echo 'gunicorn setting & nginx setting'
+echo 'migrate database'
+echo '########################'
+pipenv run python manage.py migrate
+
+
+echo '########################'
+echo 'gunicorn service setting & nginx setting'
 echo '########################'
 sudo cp ./gunicorn.service /etc/systemd/system/gunicorn.service
 sudo cp ./nginx.conf /etc/nginx/sites-enabled/nginx.conf

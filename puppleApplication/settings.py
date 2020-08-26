@@ -12,126 +12,79 @@ https://docs.djangoproject.com/en/3.1/ref/settings/
 import os
 from pathlib import Path
 
-# Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+from puppleApplication.properties.base import BaseProperties
+from puppleApplication.properties.production import ProductionProperties
 
+
+def get_properties_by_env() -> BaseProperties:
+    env = os.environ.get('env', 'local')
+    if env == 'local':
+        return BaseProperties()
+    elif env == 'production':
+        return ProductionProperties()
+
+
+activeProperties = get_properties_by_env()
+
+BASE_DIR = activeProperties.BASE_DIR
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'p&py55dgo=z9m0*eq7e@^h7_+atb!*1^#=a*u(8ear15b#hsj$'
+SECRET_KEY = activeProperties.SECRET_KEY
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = activeProperties.DEBUG
 
-ALLOWED_HOSTS = [
-    '3.35.82.232',   # Lightsail Elastic IP
-    '127.0.0.1',
-    'localhost',
-]
+ALLOWED_HOSTS = activeProperties.ALLOWED_HOSTS
 
 
 # Application definition
 
-INSTALLED_APPS = [
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'django.contrib.messages',
-    'django.contrib.staticfiles',
+INSTALLED_APPS = activeProperties.INSTALLED_APPS
 
-    'contents',
-    'components',
-]
+MIDDLEWARE = activeProperties.MIDDLEWARE
 
-MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
-    'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.common.CommonMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
-    'django.contrib.auth.middleware.AuthenticationMiddleware',
-    'django.contrib.messages.middleware.MessageMiddleware',
-    'django.middleware.clickjacking.XFrameOptionsMiddleware',
-]
+ROOT_URLCONF = activeProperties.ROOT_URLCONF
 
-ROOT_URLCONF = 'puppleApplication.urls'
+TEMPLATES = activeProperties.TEMPLATES
 
-TEMPLATES = [
-    {
-        'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'templates')]
-        ,
-        'APP_DIRS': True,
-        'OPTIONS': {
-            'context_processors': [
-                'django.template.context_processors.debug',
-                'django.template.context_processors.request',
-                'django.contrib.auth.context_processors.auth',
-                'django.contrib.messages.context_processors.messages',
-            ],
-        },
-    },
-]
-
-WSGI_APPLICATION = 'puppleApplication.wsgi.application'
+WSGI_APPLICATION = activeProperties.WSGI_APPLICATION
 
 
 # Database
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
-}
+DATABASES = activeProperties.DATABASES
 
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
-AUTH_PASSWORD_VALIDATORS = [
-    {
-        'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
-    },
-    {
-        'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
-    },
-]
-
+AUTH_PASSWORD_VALIDATORS = activeProperties.AUTH_PASSWORD_VALIDATORS
 
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = activeProperties.LANGUAGE_CODE
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = activeProperties.TIME_ZONE
 
-USE_I18N = True
+USE_I18N = activeProperties.USE_I18N
 
-USE_L10N = True
+USE_L10N = activeProperties.USE_L10N
 
-USE_TZ = True
+USE_TZ = activeProperties.USE_TZ
 
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
-STATICFILES_DIRS = [
-    # os.path.join(BASE_DIR, 'contents', 'static'),
-    # os.path.join(BASE_DIR, 'components', 'static'),
-]
+STATICFILES_DIRS = activeProperties.STATICFILES_DIRS
 
-STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATIC_URL = activeProperties.STATIC_URL
+STATIC_ROOT = activeProperties.STATIC_ROOT
 
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+MEDIA_URL = activeProperties.MEDIA_URL
+MEDIA_ROOT = activeProperties.MEDIA_ROOT
