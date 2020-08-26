@@ -4,9 +4,28 @@ from puppleApplication.properties.base import BaseProperties
 
 
 class ProductionProperties(BaseProperties):
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'handlers': {
+            'file': {
+                'level': 'DEBUG',
+                'class': 'logging.FileHandler',
+                'filename': 'django.log',
+            },
+        },
+        'loggers': {
+            'django': {
+                'handlers': ['file'],
+                'level': 'DEBUG',
+                'propagate': True,
+            },
+        },
+    }
 
     ALLOWED_HOSTS = [
-        '3.35.82.232',  # Lightsail Elastic IP
+        '3.34.90.4',  # EC2 IP
+        'pupple-backend-lb-production-912691952.ap-northeast-2.elb.amazonaws.com', # ELB
         'localhost',
         '127.0.0.1',
     ]
@@ -22,4 +41,4 @@ class ProductionProperties(BaseProperties):
         }
     }
 
-    DEBUG = False
+    DEBUG = True

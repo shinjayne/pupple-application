@@ -3,6 +3,7 @@ export ENV='production'
 echo '########################'
 echo 'install host machine requirements.'
 echo '########################'
+sudo apt-get update
 sudo apt-get -y install pipenv
 sudo apt-get -y install nginx
 
