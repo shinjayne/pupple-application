@@ -17,7 +17,7 @@ from puppleApplication.properties.production import ProductionProperties
 
 
 def get_properties_by_env() -> BaseProperties:
-    env = os.environ.get('env', 'local')
+    env = os.environ.get('ENV', 'local')
     if env == 'local':
         return BaseProperties()
     elif env == 'production':
