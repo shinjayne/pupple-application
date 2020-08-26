@@ -3,8 +3,8 @@ export ENV='production'
 echo '########################'
 echo 'install host machine requirements.'
 echo '########################'
-sudo yum -y install pipenv
-sudo yum -y install nginx
+sudo apt-get -y install pipenv
+sudo apt-get -y install nginx
 
 echo '########################'
 echo 'prepare source code'
