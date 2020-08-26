@@ -38,6 +38,7 @@ class ProductionProperties(BaseProperties):
             'PASSWORD': os.environ.get('PUPPLE_MAGIC_CODE', ''),
             'HOST': 'pupple-db.cxkrqyqhsa8o.ap-northeast-2.rds.amazonaws.com',
             'PORT': 3306,
+            'TIME_ZONE': 'Asia/Seoul',
         }
     }
 
