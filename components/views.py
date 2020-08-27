@@ -46,11 +46,16 @@ def vote_component_to_response(component):
     return response
 
 def vote_component_choice_to_response(choice):
+    voted_users = choice.ipuserprofile_set.all()
+
     response = {
         "pk": choice.pk,
         "name": choice.name,
         "img_url": choice.img.url,
         "vote": choice.vote,
+        "voted_users_pk_list": [
+            voted_user.pk for voted_user in voted_users
+        ],
     }
 
     return response

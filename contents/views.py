@@ -44,6 +44,7 @@ def youtube_contents_to_response(youtube_contents):
 
 def looks_to_response(look):
     items = look.items.all()
+    liked_users = look.ipuserprofile_set.all()
 
     response = {
         "pk": look.pk,
@@ -53,6 +54,9 @@ def looks_to_response(look):
         "like": look.like,
         "items_pk_list": [
             item.pk for item in items
+        ],
+        "liked_users_pk_list": [
+            liked_user.pk for liked_user in liked_users
         ],
     }
 
