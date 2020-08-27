@@ -14,10 +14,16 @@ class Component(models.Model):
 
 class LookItemInfoComponent(Component):
 
+    def __str__(self):
+        return "[룩 아이템] " + self.title
+
     def get_component_class(self):
         return "LookItemInfoComponent"
 
 class ItemCategoryInfoComponent(Component):
+
+    def __str__(self):
+        return "[아이템 카테고리] " + self.title
 
     def get_component_class(self):
         return "ItemCategoryInfoComponent"
@@ -27,6 +33,9 @@ class VoteComponent(Component):
     img_aspect_ratio = models.FloatField(default=1.0)
     allow_multi_choices = models.BooleanField(default=False)
 
+    def __str__(self):
+        return "[투표] " + self.title
+
     def get_component_class(self):
         return "VoteComponent"
 
@@ -35,3 +44,6 @@ class VoteChoice(models.Model):
     name = models.CharField(max_length=100, blank=True)
     img = models.ImageField(upload_to="component/vote/choice/", blank=True)
     vote = models.PositiveIntegerField(default=0)
+
+    def __str__(self):
+        return self.vote_component.title + "-" + self.name

@@ -15,6 +15,9 @@ class ShoppableContents(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.title
+
 class Creator(models.Model):
     name = models.CharField(max_length=20)
     explain = models.TextField(blank=True)  ## max_length 지정할지 고민
@@ -22,14 +25,23 @@ class Creator(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    def __str__(self):
+        return self.name
+
 class YoutubeContents(models.Model):
     shoppable_contents = models.ForeignKey(ShoppableContents, on_delete=models.SET_NULL, null=True, related_name="youtube_contents_set")
     title = models.CharField(max_length=100)
     creator = models.ForeignKey(Creator, on_delete=models.CASCADE)
     link = models.URLField()
 
+    def __str__(self):
+        return self.title
+
 class ItemTag(models.Model):
     name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
 
 class Item(models.Model):
     name = models.CharField(max_length=20)
@@ -42,6 +54,9 @@ class Item(models.Model):
     tags = models.ManyToManyField(ItemTag, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.name
 
 # class ItemImage(models.Model):
 #     item = models.ForeignKey(Item, on_delete=models.CASCADE)
@@ -57,6 +72,9 @@ class Look(models.Model):
     like = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.title
 
 # class LookImage(models.Model):
 #     look = models.ForeignKey(Look, on_delete=models.CASCADE)

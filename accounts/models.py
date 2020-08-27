@@ -10,3 +10,6 @@ class IPUserProfile(models.Model):
     voted_choices = models.ManyToManyField(VoteChoice, blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.ip_address
