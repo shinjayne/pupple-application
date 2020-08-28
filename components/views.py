@@ -6,15 +6,15 @@ from components.models import Component, LookItemInfoComponent, ItemCategoryInfo
 def component_to_response(pk):
     component_class = Component.objects.get_subclass(pk=pk)
     component = Component.objects.get(pk=pk)
-    component_class = component_class.get_component_class()
+    component_class_name = component_class.get_component_class()
 
-    if component_class == "VoteComponent":
+    if component_class_name == "VoteComponent":
         component_info = vote_component_to_response(component)
     else:
         component_info = basic_info_component_to_response(component)
 
     response = {
-        "type": component_class,
+        "type": component_class_name,
         "fields": component_info,
     }
 
