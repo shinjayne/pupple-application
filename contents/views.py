@@ -1,7 +1,6 @@
 from django.http import JsonResponse
-from django.shortcuts import render
 
-from contents.models import ShoppableContents, YoutubeContents, Look, Item, ItemTag
+from contents.models import ShoppableContents, Look, Item, ItemTag
 
 
 def shoppable_contents_to_response(pk):
@@ -10,6 +9,7 @@ def shoppable_contents_to_response(pk):
     components = shoppable_contents.component_set.all()
 
     response = {
+        "pk": shoppable_contents.id,
         "title": shoppable_contents.title,
         "explain": shoppable_contents.explain,
         "img_url": shoppable_contents.background_img.url,
@@ -108,3 +108,12 @@ def item_hit_increase(pk):
     item.save()
 
     return item.hit
+
+
+def get_all_shoppable_list(request):
+    shoppable_ids = [shoppable_contents.id for shoppable_contents in list(ShoppableContents.objects.all())]
+    return JsonResponse({
+        "data" : [
+            shoppable_contents_to_response(pk) for pk in shoppable_ids
+        ]
+    })
