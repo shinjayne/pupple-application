@@ -29,6 +29,18 @@ class ItemCategoryInfoComponent(Component):
     def get_component_class(self):
         return "ItemCategoryInfoComponent"
 
+class ModelInfoComponent(Component):
+    height = models.CharField(max_length=30, blank=True)
+    top = models.CharField(max_length=30, blank=True)
+    bottom = models.CharField(max_length=30, blank=True)
+    shoes = models.CharField(max_length=30, blank=True)
+
+    def __str__(self):
+        return "[" + self.shoppable_contents.title + "]" + " (모델) " + self.title
+
+    def get_component_class(self):
+        return "ModelInfoComponent"
+
 class VoteComponent(Component):
     img = models.ImageField(upload_to="component/vote/", blank=True)
     img_aspect_ratio = models.FloatField(default=1.0)

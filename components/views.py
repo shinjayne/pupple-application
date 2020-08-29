@@ -15,6 +15,8 @@ def component_to_response(pk):
         component_info = look_item_info_component_to_response(component)
     elif component_class_name == "VoteComponent":
         component_info = vote_component_to_response(component)
+    elif component_class_name == "ModelInfoComponent":
+        component_info = model_info_component_to_response(component)
     else:
         component_info = basic_info_component_to_response(component)
 
@@ -40,6 +42,19 @@ def look_item_info_component_to_response(component):
     response = basic_info_component_to_response(component)
     add_info = {
         "look": looks_to_response(look),
+    }
+    response.update(add_info)
+
+    return response
+
+def model_info_component_to_response(component):
+    model_info_component = component.modelinfocomponent
+    response = basic_info_component_to_response(component)
+    add_info = {
+        "height": model_info_component.height,
+        "top": model_info_component.top,
+        "bottom": model_info_component.bottom,
+        "shoes": model_info_component.shoes,
     }
     response.update(add_info)
 

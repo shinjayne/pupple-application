@@ -1,8 +1,9 @@
 from django.contrib import admin
-from components.models import LookItemInfoComponent, ItemCategoryInfoComponent, VoteComponent, VoteChoice
+from components.models import LookItemInfoComponent, ItemCategoryInfoComponent, ModelInfoComponent, VoteComponent, VoteChoice
 
 admin.site.register(LookItemInfoComponent)
 admin.site.register(ItemCategoryInfoComponent)
+admin.site.register(ModelInfoComponent)
 
 # class LookItemInfoComponentInline(admin.StackedInline):
 #     model = LookItemInfoComponent
