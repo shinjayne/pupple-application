@@ -31,7 +31,7 @@ class ItemCategoryInfoComponent(Component):
 
 class VoteComponent(Component):
     img = models.ImageField(upload_to="component/vote/", blank=True)
-    img_aspect_ratio = models.FloatField(default=1.0)
+    img_aspect_ratio = models.FloatField(default=1.0, db_column='img_aspect_ratio', name='가로/세로비', help_text="가로길이 나누기 세로길이. 정방형이면 1.")
     allowed_choice_num = models.SmallIntegerField(default=1)
 
     def __str__(self):
