@@ -110,3 +110,9 @@ def look_like_increase(pk):
 
     return look.like
 
+def item_hit_increase(pk):
+    item = Item.objects.get(pk=pk)
+    item.hit += 1
+    item.save()
+
+    return item.hit
