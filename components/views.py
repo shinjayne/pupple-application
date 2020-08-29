@@ -3,12 +3,17 @@ from django.shortcuts import render
 
 from components.models import Component, LookItemInfoComponent, ItemCategoryInfoComponent, VoteComponent, VoteChoice
 
+from contents.views import looks_to_response
+
+
 def component_to_response(pk):
     component_class = Component.objects.get_subclass(pk=pk)
     component = Component.objects.get(pk=pk)
     component_class_name = component_class.get_component_class()
 
-    if component_class_name == "VoteComponent":
+    if component_class_name == "LookItemInfoComponent":
+        component_info = look_item_info_component_to_response(component)
+    elif component_class_name == "VoteComponent":
         component_info = vote_component_to_response(component)
     else:
         component_info = basic_info_component_to_response(component)
@@ -26,6 +31,17 @@ def basic_info_component_to_response(component):
         "explain": component.explain,
         "want_to_promote": component.want_to_promote,
     }
+
+    return response
+
+def look_item_info_component_to_response(component):
+    look_item_info_component = component.lookiteminfocomponent
+    look = look_item_info_component.look
+    response = basic_info_component_to_response(component)
+    add_info = {
+        "look": looks_to_response(look),
+    }
+    response.update(add_info)
 
     return response
 

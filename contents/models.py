@@ -74,7 +74,7 @@ class Look(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return self.title
+        return "[" + self.youtube_contents.title[:20] + "...] " + self.title
 
 # class LookImage(models.Model):
 #     look = models.ForeignKey(Look, on_delete=models.CASCADE)
