@@ -32,7 +32,7 @@ class ItemCategoryInfoComponent(Component):
 class VoteComponent(Component):
     img = models.ImageField(upload_to="component/vote/", blank=True)
     img_aspect_ratio = models.FloatField(default=1.0)
-    allow_multi_choices = models.BooleanField(default=False)
+    allowed_choice_num = models.SmallIntegerField(default=1)
 
     def __str__(self):
         return "[" + self.shoppable_contents.title + "]" + " (투표) " + self.title
