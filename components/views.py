@@ -50,7 +50,7 @@ def vote_component_to_response(component):
     choices = vote_component.vote_choice_set.all()
     response = basic_info_component_to_response(component)
     add_info = {
-        "img_url": vote_component.img.url,
+        "img_url": vote_component.img.url if vote_component.img else None,
         "img_aspect_ratio": vote_component.img_aspect_ratio,
         "allowed_choice_num": vote_component.allowed_choice_num,
         "choices": [

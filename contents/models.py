@@ -67,7 +67,7 @@ class Look(models.Model):
     youtube_contents = models.ForeignKey(YoutubeContents, on_delete=models.SET_NULL, null=True, related_name="look_set")
     title = models.CharField(max_length=100)
     main_img = models.ImageField(upload_to="contents/look/{}".format(title), blank=True)
-    main_img_aspect_ratio = models.FloatField(default=1.0, db_column='main_img_aspect_ratio', name='가로/세로비', help_text="가로길이 나누기 세로길이. 정방형이면 1.")
+    main_img_aspect_ratio = models.FloatField(default=1.0, db_column='main_img_aspect_ratio', verbose_name='가로/세로비', help_text="가로길이 나누기 세로길이. 정방형이면 1.")
     # imgs = models.ForeignKey('LookImage', on_delete=models.SET_NULL, null=True)
     items = models.ManyToManyField(Item)
     like = models.PositiveIntegerField(default=0)
