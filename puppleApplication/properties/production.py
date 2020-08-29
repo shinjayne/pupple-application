@@ -25,7 +25,7 @@ class ProductionProperties(BaseProperties):
 
     ALLOWED_HOSTS = [
         '3.34.90.4',  # EC2 IP
-        'pupple-backend-lb-production-912691952.ap-northeast-2.elb.amazonaws.com', # ELB
+        'pupple-backend-lb-production-912691952.ap-northeast-2.elb.amazonaws.com',  # ELB
         'localhost',
         '127.0.0.1',
     ]
@@ -38,6 +38,11 @@ class ProductionProperties(BaseProperties):
             'PASSWORD': os.environ.get('PUPPLE_MAGIC_CODE', ''),
             'HOST': 'pupple-db.cxkrqyqhsa8o.ap-northeast-2.rds.amazonaws.com',
             'PORT': 3306,
+            'TIME_ZONE': 'Asia/Seoul',
+            'OPTIONS': {
+                'charset': 'utf8mb4',
+                'use_unicode': True,
+            }
         }
     }
 
