@@ -67,7 +67,7 @@ def vote_component_choice_to_response(choice):
     response = {
         "pk": choice.pk,
         "name": choice.name,
-        "img_url": choice.img.url,
+        "img_url": choice.img.url if choice.img else None,
         "vote": choice.vote,
         "voted_users_pk_list": [
             voted_user.pk for voted_user in voted_users
