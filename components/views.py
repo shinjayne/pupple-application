@@ -52,7 +52,7 @@ def vote_component_to_response(component):
     add_info = {
         "img_url": vote_component.img.url,
         "img_aspect_ratio": vote_component.img_aspect_ratio,
-        "allow_multi_choices": vote_component.allow_multi_choices,
+        "allowed_choice_num": vote_component.allowed_choice_num,
         "choices": [
             vote_component_choice_to_response(choice) for choice in choices
         ]

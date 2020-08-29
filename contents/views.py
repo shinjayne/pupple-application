@@ -25,7 +25,6 @@ def shoppable_contents_to_response(pk):
 
 def youtube_contents_to_response(youtube_contents):
     creator = youtube_contents.creator
-    looks = youtube_contents.look_set.all()
 
     response = {
         "title": youtube_contents.title,
@@ -35,9 +34,6 @@ def youtube_contents_to_response(youtube_contents):
             "profile_img_url": creator.profile_img.url
         },
         "link": youtube_contents.link,
-        "look_list": [
-            looks_to_response(look) for look in looks
-        ],
     }
 
     return response
@@ -53,7 +49,7 @@ def looks_to_response(look):
         "main_img_aspect_ratio": look.main_img_aspect_ratio,
         "like": look.like,
         "items_pk_list": [
-            item.pk for item in items
+            items_to_response(item) for item in items
         ],
         "liked_users_pk_list": [
             liked_user.pk for liked_user in liked_users
@@ -62,8 +58,7 @@ def looks_to_response(look):
 
     return response
 
-def items_to_response(pk):
-    item = Item.objects.get(pk=pk)
+def items_to_response(item):
     tags = item.tags.all()
 
     response = {
@@ -86,7 +81,7 @@ def related_items_to_response(pk):
 
     response = {
         "related_items": [
-            items_to_response(item.pk) for item in related_items
+            items_to_response(item) for item in related_items
         ],
     }
 
@@ -95,9 +90,6 @@ def related_items_to_response(pk):
 
 def get_shoppable_contents(request, pk):
     return JsonResponse(shoppable_contents_to_response(pk))
-
-def get_items(request, pk):
-    return JsonResponse(items_to_response(pk))
 
 def get_related_items(request, pk):
     return JsonResponse(related_items_to_response(pk))
