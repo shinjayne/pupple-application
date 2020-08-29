@@ -34,7 +34,7 @@ handler404 = error_page
 urlpatterns = [
     path('contents/', include('contents.urls')),
     path('components/', include('components.urls')),
-
+    path('accounts/', include('accounts.urls')),
 
     path('admin/', admin.site.urls),
     path('', index, name='index')

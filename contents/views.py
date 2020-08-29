@@ -3,12 +3,8 @@ from django.shortcuts import render
 
 from contents.models import ShoppableContents, YoutubeContents, Look, Item, ItemTag
 
-def shoppable_contents_detail(request, pk):
-    return render(request, 'contents/test.html', {
-        'pk': pk,
-    })
 
-def shoppable_contents_to_response(request, pk):
+def shoppable_contents_to_response(pk):
     shoppable_contents = ShoppableContents.objects.get(pk=pk)
     youtube_contents = shoppable_contents.youtube_contents_set.all()
     components = shoppable_contents.component_set.all()
@@ -25,7 +21,7 @@ def shoppable_contents_to_response(request, pk):
         ],
     }
 
-    return JsonResponse(response)
+    return response
 
 def youtube_contents_to_response(youtube_contents):
     creator = youtube_contents.creator
@@ -48,20 +44,25 @@ def youtube_contents_to_response(youtube_contents):
 
 def looks_to_response(look):
     items = look.items.all()
+    liked_users = look.ipuserprofile_set.all()
 
     response = {
         "pk": look.pk,
         "title": look.title,
         "main_img_url": look.main_img.url,
+        "main_img_aspect_ratio": look.main_img_aspect_ratio,
         "like": look.like,
         "items_pk_list": [
             item.pk for item in items
+        ],
+        "liked_users_pk_list": [
+            liked_user.pk for liked_user in liked_users
         ],
     }
 
     return response
 
-def items_to_response(request, pk):
+def items_to_response(pk):
     item = Item.objects.get(pk=pk)
     tags = item.tags.all()
 
@@ -77,9 +78,9 @@ def items_to_response(request, pk):
         ],
     }
 
-    return JsonResponse(response)
+    return response
 
-def related_items_to_response(request, pk):
+def related_items_to_response(pk):
     tag = ItemTag.objects.get(pk=pk)
     related_items = tag.item_set.all()
 
@@ -89,7 +90,18 @@ def related_items_to_response(request, pk):
         ],
     }
 
-    return JsonResponse(response)
+    return response
+
+
+def get_shoppable_contents(request, pk):
+    return JsonResponse(shoppable_contents_to_response(pk))
+
+def get_items(request, pk):
+    return JsonResponse(items_to_response(pk))
+
+def get_related_items(request, pk):
+    return JsonResponse(related_items_to_response(pk))
+
 
 def look_like_increase(pk):
     look = Look.objects.get(pk=pk)
