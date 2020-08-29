@@ -52,6 +52,7 @@ class Item(models.Model):
     price = models.PositiveIntegerField(default=0)
     link = models.URLField(blank=True)
     tags = models.ManyToManyField(ItemTag, blank=True)
+    hit = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
