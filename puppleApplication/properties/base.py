@@ -46,6 +46,10 @@ class BaseProperties:
         'django.contrib.messages',
         'django.contrib.staticfiles',
 
+        # 3rd parties
+        'corsheaders',
+
+        # our app
         'contents',
         'components',
         'accounts',
@@ -55,9 +59,11 @@ class BaseProperties:
         'django.middleware.security.SecurityMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         'django.middleware.locale.LocaleMiddleware',
-        # 순서 : SessionMiddleware, CacheMiddleware > LocaleMiddleware > CommonMiddleware
+        # 순서 : SessionMiddleware, CacheMiddleware > LocaleMiddleware,CorsMiddleware > CommonMiddleware
+        'corsheaders.middleware.CorsMiddleware',
         'django.middleware.common.CommonMiddleware',
         'django.middleware.csrf.CsrfViewMiddleware',
+        'corsheaders.middleware.CorsPostCsrfMiddleware',
         'django.contrib.auth.middleware.AuthenticationMiddleware',
         'django.contrib.messages.middleware.MessageMiddleware',
         'django.middleware.clickjacking.XFrameOptionsMiddleware',
@@ -138,3 +144,6 @@ class BaseProperties:
 
     MEDIA_URL = '/media/'
     MEDIA_ROOT = os.path.join(BASE_DIR, 'mediafiles')
+
+    CORS_ALLOW_ALL_ORIGINS = True
+    CORS_REPLACE_HTTPS_REFERER = True
