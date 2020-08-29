@@ -45,7 +45,7 @@ class ItemTag(models.Model):
 
 class Item(models.Model):
     name = models.CharField(max_length=20)
-    category = models.CharField(choices=ITEM_CATEGORY, default='none' , max_length=10)
+    category = models.CharField(choices=ITEM_CATEGORY, default='none' , max_length=50)
     main_img = models.ImageField(upload_to="contents/item/{}".format(name), blank=True)
     # imgs = models.ForeignKey('ItemImage', on_delete=models.SET_NULL, null=True)
     explain = models.TextField(blank=True)
