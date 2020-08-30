@@ -7,7 +7,7 @@ from contents.models import ShoppableContents, YoutubeContents, Look, Item, Item
 def shoppable_contents_to_response(pk):
     shoppable_contents = ShoppableContents.objects.get(pk=pk)
     youtube_contents = shoppable_contents.youtube_contents_set.all()
-    components = shoppable_contents.component_set.all()
+    components = shoppable_contents.component_set.all().order_by('order')
 
     response = {
         "title": shoppable_contents.title,
