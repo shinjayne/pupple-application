@@ -50,7 +50,7 @@ class Item(models.Model):
     # imgs = models.ForeignKey('ItemImage', on_delete=models.SET_NULL, null=True)
     explain = models.TextField(blank=True)
     price = models.PositiveIntegerField(default=0)
-    link = models.URLField(blank=True)
+    link = models.URLField(blank=True, help_text='https 로 접속 가능하면 https 로 해주세요.')
     tags = models.ManyToManyField(ItemTag, blank=True)
     hit = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
