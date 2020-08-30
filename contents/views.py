@@ -95,14 +95,14 @@ def get_related_items(request, pk):
     return JsonResponse(related_items_to_response(pk))
 
 
-def look_like_increase(pk):
+def look_like_increase(reqeust, pk):
     look = Look.objects.get(pk=pk)
     look.like += 1
     look.save()
 
     return look.like
 
-def item_hit_increase(pk):
+def item_hit_increase(request, pk):
     item = Item.objects.get(pk=pk)
     item.hit += 1
     item.save()
