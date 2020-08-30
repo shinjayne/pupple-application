@@ -80,10 +80,13 @@ def vote_component_choice_to_response(choice):
 def get_component(request, pk):
     return JsonResponse(component_to_response(pk))
 
+
 def vote_component_choice_increase(request, pk):
     choice = VoteChoice.objects.get(pk=pk)
     choice.vote += 1
     choice.save()
 
-    return JsonResponse(choice.vote)
+    return JsonResponse({
+        "value": choice.vote
+    })
 
