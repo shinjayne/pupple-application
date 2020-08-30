@@ -100,14 +100,14 @@ def look_like_increase(reqeust, pk):
     look.like += 1
     look.save()
 
-    return look.like
+    return JsonResponse(look.like)
 
 def item_hit_increase(request, pk):
     item = Item.objects.get(pk=pk)
     item.hit += 1
     item.save()
 
-    return item.hit
+    return JsonResponse(item.hit)
 
 
 def get_all_shoppable_list(request):

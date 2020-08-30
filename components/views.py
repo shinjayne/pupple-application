@@ -85,5 +85,5 @@ def vote_component_choice_increase(request, pk):
     choice.vote += 1
     choice.save()
 
-    return choice.vote
+    return JsonResponse(choice.vote)
 
