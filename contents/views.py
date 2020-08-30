@@ -62,6 +62,7 @@ def items_to_response(item):
     tags = item.tags.all()
 
     response = {
+        "pk" : item.id,
         "name": item.name,
         "category": item.category,
         "explain": item.explain,
@@ -104,6 +105,15 @@ def look_like_increase(reqeust, pk):
         "value":  look.like
     })
 
+def look_like_decrease(request, pk):
+    look = Look.objects.get(pk=pk)
+    look.like -= 1
+    look.save()
+
+    return JsonResponse({
+        "value":  look.like
+    })
+
 def item_hit_increase(request, pk):
     item = Item.objects.get(pk=pk)
     item.hit += 1
@@ -112,7 +122,6 @@ def item_hit_increase(request, pk):
     return JsonResponse({
         "value": item.hit
     })
-
 
 def get_all_shoppable_list(request):
     shoppable_ids = [shoppable_contents.id for shoppable_contents in list(ShoppableContents.objects.all())]
