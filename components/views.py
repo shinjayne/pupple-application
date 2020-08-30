@@ -65,7 +65,7 @@ def vote_component_to_response(component):
     choices = vote_component.vote_choice_set.all()
     response = basic_info_component_to_response(component)
     add_info = {
-        "img_url": vote_component.img.url,
+        "img_url": vote_component.img.url if vote_component.img else None,
         "img_aspect_ratio": vote_component.img_aspect_ratio,
         "allowed_choice_num": vote_component.allowed_choice_num,
         "choices": [
@@ -82,7 +82,7 @@ def vote_component_choice_to_response(choice):
     response = {
         "pk": choice.pk,
         "name": choice.name,
-        "img_url": choice.img.url,
+        "img_url": choice.img.url if choice.img else None,
         "vote": choice.vote,
         "voted_users_pk_list": [
             voted_user.pk for voted_user in voted_users
@@ -95,10 +95,13 @@ def vote_component_choice_to_response(choice):
 def get_component(request, pk):
     return JsonResponse(component_to_response(pk))
 
-def vote_component_choice_increase(pk):
+
+def vote_component_choice_increase(request, pk):
     choice = VoteChoice.objects.get(pk=pk)
     choice.vote += 1
     choice.save()
 
-    return choice.vote
+    return JsonResponse({
+        "value": choice.vote
+    })
 
