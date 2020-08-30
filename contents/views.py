@@ -12,7 +12,7 @@ def shoppable_contents_to_response(pk):
         "pk": shoppable_contents.id,
         "title": shoppable_contents.title,
         "explain": shoppable_contents.explain,
-        "img_url": shoppable_contents.background_img.url,
+        "img_url": shoppable_contents.background_img.url if shoppable_contents.background_img else None,
         "youtube_contents_list": [
             youtube_contents_to_response(youtube_content) for youtube_content in youtube_contents
         ],
@@ -31,7 +31,7 @@ def youtube_contents_to_response(youtube_contents):
         "creator": {
             "name": creator.name,
             "explain": creator.explain,
-            "profile_img_url": creator.profile_img.url
+            "profile_img_url": creator.profile_img.url if creator.profile_img else None
         },
         "link": youtube_contents.link,
     }
@@ -45,7 +45,7 @@ def looks_to_response(look):
     response = {
         "pk": look.pk,
         "title": look.title,
-        "main_img_url": look.main_img.url,
+        "main_img_url": look.main_img.url if look.main_img else None,
         "main_img_aspect_ratio": look.main_img_aspect_ratio,
         "like": look.like,
         "items_pk_list": [
@@ -66,7 +66,7 @@ def items_to_response(item):
         "name": item.name,
         "category": item.category,
         "explain": item.explain,
-        "main_img_url": item.main_img.url,
+        "main_img_url":  item.main_img.url if item.main_img else None,
         "price": item.price,
         "link": item.link,
         "tag_pk_list": [
