@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 
+from accounts.models import IPUserProfile
 from contents.models import ShoppableContents, Look, Item, ItemTag
 
 
@@ -96,10 +97,21 @@ def get_related_items(request, pk):
     return JsonResponse(related_items_to_response(pk))
 
 
-def look_like_increase(reqeust, pk):
+def look_like_increase(request, pk):
     look = Look.objects.get(pk=pk)
     look.like += 1
     look.save()
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+
+    if x_forwarded_for:
+        ip_address = x_forwarded_for.split(',')[0]
+    else:
+        ip_address = request.META.get('REMOTE_ADDR')
+
+    ip_user = IPUserProfile.objects.get(ip_address=ip_address)
+    ip_user.liked_looks.add(look)
+    ip_user.save()
 
     return JsonResponse({
         "value":  look.like
@@ -109,6 +121,17 @@ def look_like_decrease(request, pk):
     look = Look.objects.get(pk=pk)
     look.like -= 1
     look.save()
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+
+    if x_forwarded_for:
+        ip_address = x_forwarded_for.split(',')[0]
+    else:
+        ip_address = request.META.get('REMOTE_ADDR')
+
+    ip_user = IPUserProfile.objects.get(ip_address=ip_address)
+    ip_user.liked_looks.remove(look)
+    ip_user.save()
 
     return JsonResponse({
         "value":  look.like

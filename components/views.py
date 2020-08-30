@@ -2,6 +2,7 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from components.models import Component, LookItemInfoComponent, ItemCategoryInfoComponent, VoteComponent, VoteChoice
+from accounts.models import IPUserProfile
 
 from contents.views import looks_to_response
 
@@ -100,6 +101,17 @@ def vote_component_choice_increase(request, pk):
     choice = VoteChoice.objects.get(pk=pk)
     choice.vote += 1
     choice.save()
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+
+    if x_forwarded_for:
+        ip_address = x_forwarded_for.split(',')[0]
+    else:
+        ip_address = request.META.get('REMOTE_ADDR')
+
+    ip_user = IPUserProfile.objects.get(ip_address=ip_address)
+    ip_user.voted_choices.add(choice)
+    ip_user.save()
 
     return JsonResponse({
         "value": choice.vote
