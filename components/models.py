@@ -19,6 +19,10 @@ class LookItemInfoComponent(Component):
     def __str__(self):
         return "[" + self.shoppable_contents.title + "]" + " (룩 아이템) " + self.title
 
+    class Meta:
+        verbose_name = '장면 컴포넌트'
+        verbose_name_plural = '장면 컴포넌트'
+
     def get_component_class(self):
         return "LookItemInfoComponent"
 
@@ -26,6 +30,10 @@ class ItemCategoryInfoComponent(Component):
 
     def __str__(self):
         return "[" + self.shoppable_contents.title + "]" + " (아이템 카테고리) " + self.title
+
+    class Meta:
+        verbose_name = '카테고리 컴포넌트'
+        verbose_name_plural = '카테고리 컴포넌트'
 
     def get_component_class(self):
         return "ItemCategoryInfoComponent"
@@ -36,8 +44,14 @@ class ModelInfoComponent(Component):
     bottom = models.CharField(max_length=30, blank=True)
     shoes = models.CharField(max_length=30, blank=True)
 
+    class Meta:
+        verbose_name = '모델정보 컴포넌트'
+        verbose_name_plural = '모델정보 컴포넌트'
+
     def __str__(self):
         return "[" + self.shoppable_contents.title + "]" + " (모델) " + self.title
+
+
 
     def get_component_class(self):
         return "ModelInfoComponent"
@@ -46,6 +60,10 @@ class VoteComponent(Component):
     img = models.ImageField(upload_to="component/vote/", blank=True)
     img_aspect_ratio = models.FloatField(default=1.0, verbose_name='가로/세로비', help_text="가로길이 나누기 세로길이. 정방형이면 1.")
     allowed_choice_num = models.SmallIntegerField(default=1)
+
+    class Meta:
+        verbose_name = '투표 컴포넌트'
+        verbose_name_plural = '투표 컴포넌트'
 
     def __str__(self):
         return "[" + self.shoppable_contents.title + "]" + " (투표) " + self.title

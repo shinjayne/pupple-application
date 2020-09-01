@@ -15,6 +15,10 @@ class ShoppableContents(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = '퍼플 컨텐츠'
+        verbose_name_plural = '퍼플 컨텐츠들'
+
     def __str__(self):
         return self.title
 
@@ -33,6 +37,11 @@ class YoutubeContents(models.Model):
     title = models.CharField(max_length=100)
     creator = models.ForeignKey(Creator, on_delete=models.CASCADE)
     link = models.URLField()
+
+    class Meta:
+        verbose_name = '유튜브 컨텐츠 정보'
+        verbose_name_plural = '유튜브 컨텐츠 정보들'
+
 
     def __str__(self):
         return self.title
@@ -56,8 +65,12 @@ class Item(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = '상품'
+        verbose_name_plural = '상품들'
+
     def __str__(self):
-        return self.name
+        return f"[{self.category}] {self.name} (W {self.price})"
 
 # class ItemImage(models.Model):
 #     item = models.ForeignKey(Item, on_delete=models.CASCADE)
@@ -73,6 +86,10 @@ class Look(models.Model):
     like = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        verbose_name = '장면'
+        verbose_name_plural = '장면들'
 
     def __str__(self):
         return "[" + self.youtube_contents.title[:20] + "...] " + self.title
