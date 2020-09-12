@@ -46,4 +46,6 @@ class ProductionProperties(BaseProperties):
         }
     }
 
+    DEFAULT_FILE_STORAGE = 'storages.backends.s3boto.S3BotoStorage'
+
     DEBUG = True

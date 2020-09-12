@@ -48,6 +48,7 @@ class BaseProperties:
 
         # 3rd parties
         'corsheaders',
+        'storages',
 
         # our app
         'contents',
@@ -99,6 +100,10 @@ class BaseProperties:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+
+    DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
+    AWS_STORAGE_BUCKET_NAME = 'pupple-storage'
+    AWS_S3_REGION_NAME = 'ap-northeast-2'
 
     # Password validation
     # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators

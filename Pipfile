@@ -12,6 +12,7 @@ pillow = "*"
 mysqlclient = "*"
 gunicorn = "*"
 django-cors-headers = "*"
+django-storages = "*"
 
 [requires]
 python_version = "3.7"
