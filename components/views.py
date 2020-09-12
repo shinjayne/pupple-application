@@ -78,7 +78,7 @@ def vote_component_to_response(component):
     return response
 
 def vote_component_choice_to_response(choice):
-    voted_users = choice.ipuserprofile_set.all()
+    voted_users = choice.voted_users.all()
 
     response = {
         "pk": choice.pk,
@@ -100,7 +100,6 @@ def get_component(request, pk):
 def vote_component_choice_increase(request, pk):
     choice = VoteChoice.objects.get(pk=pk)
     choice.vote += 1
-    choice.save()
 
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
 
@@ -110,8 +109,9 @@ def vote_component_choice_increase(request, pk):
         ip_address = request.META.get('REMOTE_ADDR')
 
     ip_user = IPUserProfile.objects.get(ip_address=ip_address)
-    ip_user.voted_choices.add(choice)
-    ip_user.save()
+
+    choice.voted_users.add(ip_user)
+    choice.save()
 
     return JsonResponse({
         "value": choice.vote

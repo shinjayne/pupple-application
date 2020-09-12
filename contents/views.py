@@ -41,7 +41,7 @@ def youtube_contents_to_response(youtube_contents):
 
 def looks_to_response(look):
     items = look.items.all()
-    liked_users = look.ipuserprofile_set.all()
+    liked_users = look.liked_users.all()
 
     response = {
         "pk": look.pk,
@@ -100,7 +100,6 @@ def get_related_items(request, pk):
 def look_like_increase(request, pk):
     look = Look.objects.get(pk=pk)
     look.like += 1
-    look.save()
 
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
 
@@ -110,8 +109,9 @@ def look_like_increase(request, pk):
         ip_address = request.META.get('REMOTE_ADDR')
 
     ip_user = IPUserProfile.objects.get(ip_address=ip_address)
-    ip_user.liked_looks.add(look)
-    ip_user.save()
+
+    look.liked_users.add(ip_user)
+    look.save()
 
     return JsonResponse({
         "value":  look.like
@@ -120,7 +120,6 @@ def look_like_increase(request, pk):
 def look_like_decrease(request, pk):
     look = Look.objects.get(pk=pk)
     look.like -= 1
-    look.save()
 
     x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
 
@@ -130,8 +129,9 @@ def look_like_decrease(request, pk):
         ip_address = request.META.get('REMOTE_ADDR')
 
     ip_user = IPUserProfile.objects.get(ip_address=ip_address)
-    ip_user.liked_looks.remove(look)
-    ip_user.save()
+
+    look.liked_users.remove(ip_user)
+    look.save()
 
     return JsonResponse({
         "value":  look.like

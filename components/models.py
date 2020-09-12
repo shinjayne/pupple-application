@@ -1,6 +1,7 @@
 from django.db import models
 from model_utils.managers import InheritanceManager
 from contents.models import ShoppableContents, Look
+from accounts.models import IPUserProfile
 
 class Component(models.Model):
     shoppable_contents = models.ForeignKey(ShoppableContents, on_delete=models.CASCADE, related_name="component_set")
@@ -51,8 +52,6 @@ class ModelInfoComponent(Component):
     def __str__(self):
         return "[" + self.shoppable_contents.title[:20] + "...]" + " (모델) " + self.title
 
-
-
     def get_component_class(self):
         return "ModelInfoComponent"
 
@@ -76,6 +75,7 @@ class VoteChoice(models.Model):
     name = models.CharField(max_length=100, blank=True)
     img = models.ImageField(upload_to="component/vote/choice/", blank=True)
     vote = models.PositiveIntegerField(default=0)
+    voted_users = models.ManyToManyField(IPUserProfile, blank=True)
 
     def __str__(self):
         return self.vote_component.title[:20] + "... : " + self.name
@@ -96,7 +96,7 @@ class CommentComponent(Component):
 
 class Comment(models.Model):
     comment_component = models.ForeignKey(CommentComponent, on_delete=models.CASCADE, related_name="comment_set")
-    random_writer_name = models.CharField(max_length=30)
+    writer = models.ForeignKey(IPUserProfile, on_delete=models.CASCADE, related_name="comment_set")
     comment = models.TextField(max_length=500)
     like = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
