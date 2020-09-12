@@ -61,6 +61,11 @@ WSGI_APPLICATION = activeProperties.WSGI_APPLICATION
 DATABASES = activeProperties.DATABASES
 
 
+DEFAULT_FILE_STORAGE = activeProperties.DEFAULT_FILE_STORAGE
+AWS_STORAGE_BUCKET_NAME = activeProperties.AWS_STORAGE_BUCKET_NAME
+AWS_S3_REGION_NAME = activeProperties.AWS_S3_REGION_NAME
+
+
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
 
