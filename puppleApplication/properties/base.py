@@ -104,6 +104,7 @@ class BaseProperties:
     DEFAULT_FILE_STORAGE = 'django.core.files.storage.FileSystemStorage'
     AWS_STORAGE_BUCKET_NAME = 'pupple-storage'
     AWS_S3_REGION_NAME = 'ap-northeast-2'
+    AWS_S3_SIGNATURE_VERSION = 's3v4'
 
     # Password validation
     # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
