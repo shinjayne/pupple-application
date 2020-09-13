@@ -99,6 +99,7 @@ class Comment(models.Model):
     writer = models.ForeignKey(IPUserProfile, on_delete=models.CASCADE, related_name="comment_set")
     comment = models.TextField(max_length=500)
     like = models.PositiveIntegerField(default=0)
+    liked_users = models.ManyToManyField(IPUserProfile, blank=True, related_name="liked_comment_set")
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
