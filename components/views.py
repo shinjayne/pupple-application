@@ -16,6 +16,8 @@ def component_to_response(pk):
         component_info = look_item_info_component_to_response(component)
     elif component_class_name == "VoteComponent":
         component_info = vote_component_to_response(component)
+    elif component_class_name == "CommentComponent":
+        component_info = comment_component_to_response(component)
     elif component_class_name == "ModelInfoComponent":
         component_info = model_info_component_to_response(component)
     else:
@@ -92,6 +94,36 @@ def vote_component_choice_to_response(choice):
 
     return response
 
+def comment_component_to_response(component):
+    comment_component = component.commentcomponent
+    comments = comment_component.comment_set.all()
+    response = basic_info_component_to_response(component)
+    add_info = {
+        "img_url": comment_component.img.url if comment_component.img else None,
+        "img_aspect_ratio": comment_component.img_aspect_ratio,
+        "comments": [
+            comment_to_response(comment) for comment in comments
+        ]
+    }
+    response.update(add_info)
+
+    return response
+
+def comment_to_response(comment):
+    liked_users = comment.liked_users.all()
+
+    response = {
+        "pk": comment.pk,
+        "writer": comment.writer.get_random.nickname,
+        "comment": comment.comment,
+        "like": comment.like,
+        "liked_users_pk_list": [
+            liked_user.pk for liked_user in liked_users
+        ],
+    }
+
+    return response
+
 
 def get_component(request, pk):
     return JsonResponse(component_to_response(pk))
@@ -115,5 +147,35 @@ def vote_component_choice_increase(request, pk):
 
     return JsonResponse({
         "value": choice.vote
+    })
+
+def comment_create(request, pk):
+    comment_component = CommentComponent.objects.get(pk=pk)  ## 댓글 컴포넌트의 pk
+
+    x_forwarded_for = request.META.get('HTTP_X_FORWARDED_FOR')
+
+    if x_forwarded_for:
+        ip_address = x_forwarded_for.split(',')[0]
+    else:
+        ip_address = request.META.get('REMOTE_ADDR')
+
+    ip_user = IPUserProfile.objects.get(ip_address=ip_address)
+
+    if request.method == 'POST':
+        comment_contents = request.POST.get('comment')
+        comment = Comment.objects.create(
+            comment_component=comment_component,
+            writer=ip_user,
+            comment=comment_contents,
+        )
+
+        return JsonResponse(comment_to_response(comment))
+
+def comment_delete(request, pk):
+    comment = Comment.objects.get(pk=pk)  ## 댓글의 pk
+    comment.delete()
+
+    return JsonResponse({
+        "status": "complete"
     })
 
