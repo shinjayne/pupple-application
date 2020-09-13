@@ -2,9 +2,10 @@ from django.http import JsonResponse
 from django.shortcuts import render
 
 from components.models import Component, LookItemInfoComponent, ItemCategoryInfoComponent, VoteComponent, VoteChoice
-from accounts.models import IPUserProfile
+from accounts.models import IPUserProfile, RandomNickName
 
 from contents.views import looks_to_response
+from accounts.views import generate_random_nickname
 
 
 def component_to_response(pk):
@@ -163,6 +164,15 @@ def comment_create(request, pk):
 
     if request.method == 'POST':
         comment_contents = request.POST.get('comment')
+
+        try:
+            ip_user.get_random
+        else:
+            RandomNickName.objects.create(
+                user = ip_user,
+                nickname = generate_random_nickname(),
+            )
+
         comment = Comment.objects.create(
             comment_component=comment_component,
             writer=ip_user,
