@@ -1,7 +1,7 @@
 from django.http import JsonResponse
 from django.shortcuts import render
 
-from components.models import Component, LookItemInfoComponent, ItemCategoryInfoComponent, VoteComponent, VoteChoice
+from components.models import Component, LookItemInfoComponent, ItemCategoryInfoComponent, VoteComponent, VoteChoice, CommentComponent, Comment
 from accounts.models import IPUserProfile, RandomNickName
 
 from contents.views import looks_to_response
@@ -167,7 +167,7 @@ def comment_create(request, pk):
 
         try:
             ip_user.get_random
-        else:
+        except:
             RandomNickName.objects.create(
                 user = ip_user,
                 nickname = generate_random_nickname(),
