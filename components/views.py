@@ -121,6 +121,7 @@ def comment_to_response(comment):
         "liked_users_pk_list": [
             liked_user.pk for liked_user in liked_users
         ],
+        "created_at": comment.created_at
     }
 
     return response
