@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 from components.models import Component, LookItemInfoComponent, ItemCategoryInfoComponent, VoteComponent, VoteChoice, CommentComponent, Comment
 from accounts.models import IPUserProfile, RandomNickName
@@ -152,6 +153,8 @@ def vote_component_choice_increase(request, pk):
         "value": choice.vote
     })
 
+
+@csrf_exempt
 def comment_create(request, pk):
     comment_component = CommentComponent.objects.get(pk=pk)  ## 댓글 컴포넌트의 pk
 
@@ -183,6 +186,7 @@ def comment_create(request, pk):
 
         return JsonResponse(comment_to_response(comment))
 
+@csrf_exempt
 def comment_delete(request, pk):
     comment = Comment.objects.get(pk=pk)  ## 댓글의 pk
     comment.delete()
