@@ -1,3 +1,5 @@
+import json
+
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
@@ -168,7 +170,8 @@ def comment_create(request, pk):
     ip_user = IPUserProfile.objects.get(ip_address=ip_address)
 
     if request.method == 'POST':
-        comment_contents = request.POST.get('comment')
+        json_data = json.loads(request.body)
+        comment_contents = json_data.get('comment')
 
         try:
             ip_user.get_random
