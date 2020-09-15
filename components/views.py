@@ -100,6 +100,7 @@ def comment_component_to_response(component):
     comments = comment_component.comment_set.all()
     response = basic_info_component_to_response(component)
     add_info = {
+        "pk" : comment_component.pk,
         "img_url": comment_component.img.url if comment_component.img else None,
         "img_aspect_ratio": comment_component.img_aspect_ratio,
         "comments": [
