@@ -18,6 +18,8 @@ def component_to_response(pk):
 
     if component_class_name == "LookItemInfoComponent":
         component_info = look_item_info_component_to_response(component)
+    elif component_class_name == "QuoteCompoennt":
+        component_info = basic_info_component_to_response(component)
     elif component_class_name == "VoteComponent":
         component_info = vote_component_to_response(component)
     elif component_class_name == "CommentComponent":
