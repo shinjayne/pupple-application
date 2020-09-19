@@ -7,7 +7,7 @@ UNIT_CATEGORY = [('size', 'size'), ('inch', 'inch'), ('cm', 'cm'), ('mm', 'mm'),
 
 class Component(models.Model):
     shoppable_contents = models.ForeignKey(ShoppableContents, on_delete=models.CASCADE, related_name="component_set")
-    title = models.CharField(max_length=100)
+    title = models.CharField(max_length=65)
     explain = models.TextField(blank=True)
     order = models.PositiveIntegerField(default=1)
     want_to_promote = models.BooleanField(default=False)
