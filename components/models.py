@@ -122,5 +122,9 @@ class Comment(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
+    class Meta:
+        verbose_name = '댓글'
+        verbose_name_plural = '댓글'
+
     def __str__(self):
         return self.comment_component.title[:20] + "... : " + self.comment

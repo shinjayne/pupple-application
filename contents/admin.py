@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from components.models import VoteComponent, LookItemInfoComponent, ModelInfoComponent
+from components.models import VoteComponent, LookItemInfoComponent, QuoteComponent, ModelInfoComponent
 from contents.models import ShoppableContents, YoutubeContents, Creator, Item, ItemTag, Look
 
 admin.site.register(Creator)
@@ -9,7 +9,7 @@ admin.site.register(ItemTag)
 
 class VoteComponentInline(admin.TabularInline):
     model = VoteComponent
-    ordering=('order', )
+    ordering = ('order', )
 
 
 class LookInfoComponentInline(admin.TabularInline):
@@ -17,15 +17,20 @@ class LookInfoComponentInline(admin.TabularInline):
     ordering = ('order',)
 
 
+class QuoteComponentInline(admin.TabularInline):
+    model = QuoteComponent
+    ordering = ('order',)
+
+
 class ModelInfoComponentInline(admin.TabularInline):
     model = ModelInfoComponent
-    ordering=('order', )
+    ordering = ('order', )
 
 
 @admin.register(ShoppableContents)
 class ShoppableContentsAdmin(admin.ModelAdmin):
     list_display = ['title', 'explain' , 'background_img']
-    inlines = [VoteComponentInline, LookInfoComponentInline, ModelInfoComponentInline]
+    inlines = [VoteComponentInline, LookInfoComponentInline, QuoteComponentInline, ModelInfoComponentInline]
 
 @admin.register(Item)
 class ItemAdmin(admin.ModelAdmin):
