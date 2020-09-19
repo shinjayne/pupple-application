@@ -3,6 +3,8 @@ from model_utils.managers import InheritanceManager
 from contents.models import ShoppableContents, Look
 from accounts.models import IPUserProfile
 
+UNIT_CATEGORY = [('size', 'size'), ('inch', 'inch'), ('cm', 'cm'), ('mm', 'mm'), ('m', 'm'), ('kg', 'kg'), ('g', 'g')]
+
 class Component(models.Model):
     shoppable_contents = models.ForeignKey(ShoppableContents, on_delete=models.CASCADE, related_name="component_set")
     title = models.CharField(max_length=100)
@@ -41,9 +43,15 @@ class ItemCategoryInfoComponent(Component):
 
 class ModelInfoComponent(Component):
     height = models.CharField(max_length=30, blank=True)
+    height_unit = models.CharField(choices=UNIT_CATEGORY, default='cm', max_length=10)
     top = models.CharField(max_length=30, blank=True)
+    top_unit = models.CharField(choices=UNIT_CATEGORY, default='size', max_length=10)
     bottom = models.CharField(max_length=30, blank=True)
+    bottom_unit = models.CharField(choices=UNIT_CATEGORY, default='inch', max_length=10)
     shoes = models.CharField(max_length=30, blank=True)
+    shoes_unit = models.CharField(choices=UNIT_CATEGORY, default='mm', max_length=10)
+    weight = models.CharField(max_length=30, blank=True)
+    weight_unit = models.CharField(choices=UNIT_CATEGORY, default='kg', max_length=10)
 
     class Meta:
         verbose_name = '모델정보 컴포넌트'
