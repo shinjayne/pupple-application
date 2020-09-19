@@ -97,6 +97,15 @@ def get_related_items(request, pk):
     return JsonResponse(related_items_to_response(pk))
 
 
+def shoppable_contents_share_increase(request, pk):
+    shoppable_contents = ShoppableContents.objects.get(pk=pk)
+    shoppable_contents.share += 1
+    shoppable_contents.save()
+
+    return JsonResponse({
+        "value": shoppable_contents.share
+    })
+
 def look_like_increase(request, pk):
     look = Look.objects.get(pk=pk)
     look.like += 1

@@ -14,6 +14,7 @@ class ShoppableContents(models.Model):
     title = models.CharField(max_length=100)
     explain = models.TextField(blank=True)  ## max_length 지정할지 고민
     background_img = models.ImageField(upload_to="contents/shoppable/background", blank=True)
+    share = models.PositiveIntegerField(default=0)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
