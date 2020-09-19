@@ -59,10 +59,16 @@ def model_info_component_to_response(component):
     response = basic_info_component_to_response(component)
     add_info = {
         "height": model_info_component.height,
+        "height_unit": model_info_component.height_unit,
         "top": model_info_component.top,
+        "top_unit": model_info_component.top_unit,
         "bottom": model_info_component.bottom,
+        "bottom_unit": model_info_component.bottom_unit,
         "shoes": model_info_component.shoes,
-    }
+        "shoes_unit": model_info_component.shoes_unit,
+        "weight": model_info_component.weight,
+        "weight_unit": model_info_component.weight_unit,
+        }
     response.update(add_info)
 
     return response
