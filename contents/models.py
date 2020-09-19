@@ -4,11 +4,11 @@ from accounts.models import IPUserProfile
 
 ITEM_CATEGORY = [('T-shirts', '티셔츠'), ('Hoodie/Sweat shirts', '후드/집업/맨투맨'), ('Shirts/Blouse', '셔츠/블라우스'), ('Knite/Cardigan', '니트/가디건'), ('Outer', '아우터'), ('Pants', '팬츠'), ('Skirt', '스커트'), ('One-piece', '원피스'), ('Sports', '스포츠'), ('Underwear', '언더웨어'), ('Bag', '가방'), ('Wallet/Pouch', '지갑/파우치'), ('Watch', '시계'), ('Hat', '모자'), ('Glass/Sunglass', '안경/선글라스'), ('Jewelry', '쥬얼리'), ('Shocks', '양말/스타킹'), ('Sneakers', '스니커즈'), ('Shoes', '구두'), ('Sandal', '샌들'), ('Boots', '부츠'), ('Shoe care', '슈케어'), ('Men shoes', '남성슈즈'), ('Phone accessories', '휴대폰 액세서리'), ('etc', '기타')]
 
-# def item_img_upload_path(instance):
-#     return "contents/item/{}".format(instance.item.name)
+def item_img_upload_path(instance, filename):
+    return "contents/item/{}/{}".format(instance.name, filename)
 
-# def look_img_upload_path(instance):
-#     return "contents/look/{}".format(instance.look.title)
+def look_img_upload_path(instance, filename):
+    return "contents/look/{}/{}".format(instance.title, filename)
 
 class ShoppableContents(models.Model):
     title = models.CharField(max_length=100)
@@ -58,7 +58,7 @@ class ItemTag(models.Model):
 class Item(models.Model):
     name = models.CharField(max_length=50)
     category = models.CharField(choices=ITEM_CATEGORY, default='none' , max_length=50)
-    main_img = models.ImageField(upload_to="contents/item/{}".format(name), blank=True)
+    main_img = models.ImageField(upload_to=item_img_upload_path, blank=True)
     # imgs = models.ForeignKey('ItemImage', on_delete=models.SET_NULL, null=True)
     explain = models.TextField(blank=True)
     price = models.PositiveIntegerField(default=0)
@@ -82,7 +82,7 @@ class Item(models.Model):
 class Look(models.Model):
     youtube_contents = models.ForeignKey(YoutubeContents, on_delete=models.SET_NULL, null=True, related_name="look_set")
     title = models.CharField(max_length=100)
-    main_img = models.ImageField(upload_to="contents/look/{}".format(title), blank=True)
+    main_img = models.ImageField(upload_to=look_img_upload_path, blank=True)
     main_img_aspect_ratio = models.FloatField(default=1.0, db_column='main_img_aspect_ratio', verbose_name='가로/세로비', help_text="가로길이 나누기 세로길이. 정방형이면 1.")
     # imgs = models.ForeignKey('LookImage', on_delete=models.SET_NULL, null=True)
     items = models.ManyToManyField(Item)
