@@ -63,6 +63,17 @@ class ModelInfoComponent(Component):
     def get_component_class(self):
         return "ModelInfoComponent"
 
+class QuoteComponent(Component):
+    def __str__(self):
+        return "[" + self.shoppable_contents.title[:20] + "...]" + " (인용구 컴포넌트) " + self.title
+
+    class Meta:
+        verbose_name = '인용구 컴포넌트'
+        verbose_name_plural = '인용구 컴포넌트'
+
+    def get_component_class(self):
+        return "QuoteComponent"
+
 class VoteComponent(Component):
     img = models.ImageField(upload_to="component/vote/", blank=True)
     img_aspect_ratio = models.FloatField(default=1.0, verbose_name='가로/세로비', help_text="가로길이 나누기 세로길이. 정방형이면 1.")
